@@ -10,15 +10,15 @@ LANG:C++11
 
 using namespace std;
 
-long long dp[10001];
+pair<long long, long long> dp[10001];
 
 int main()
 {
     int n, v;
     long long vals[25];
 
-//    freopen("money.in", "r", stdin);
-//    freopen("money.out", "w", stdout);
+    freopen("money.in", "r", stdin);
+    freopen("money.out", "w", stdout);
 
     cin >> v >> n;
     for(int i=0; i < v; ++i)
@@ -27,17 +27,17 @@ int main()
     }
     sort(vals, vals + v);
 
-    dp[0] = 1;
-    for(int i=1; i <= n; ++i)
+    dp[0].first = 1;
+    dp[0].second = 0;
+    for(int j=0; j < v; ++j)
     {
-        for(int j=0; j < v && i >= vals[j]; ++j)
+        for(int i=0; i <= n && i + vals[j] <= n; ++i)
         {
-            dp[i] += dp[ i - vals[j] ];
+            dp[i + vals[j]].first += dp[i].first;
         }
-        cout << dp[i] << endl;
     }
 
-    cout << dp[n] << endl;
+    cout << dp[n].first << endl;
 
     return 0;
 }
