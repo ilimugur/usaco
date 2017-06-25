@@ -21,8 +21,8 @@ int main()
 {
     int n = 0, LP = 0, maxPrefixLen = 0;
 
-//    freopen("prefix.in", "r", stdin);
-//    freopen("prefix.out", "w", stdout);
+    freopen("prefix.in", "r", stdin);
+    freopen("prefix.out", "w", stdout);
 
     scanf("%s", str);
     while(str[0] != '.')
