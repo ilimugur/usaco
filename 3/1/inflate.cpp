@@ -12,8 +12,8 @@ LANG:C++11
 using namespace std;
 
 int n, m;
-pair<double, int> order[NLIMIT];
 pair<int, int> category[NLIMIT];
+int dp[10001];
 
 int main()
 {
@@ -27,31 +27,21 @@ int main()
     for(i=0; i < n; ++i)
     {
         scanf("%d%d", &category[i].first, &category[i].second);
-        order[i].first = category[i].first / (double) category[i].second;
-        order[i].second = i;
     }
-    sort(order, order + n);
 
-
-    i = n-1;
-    while(m > 0)
+    for(int i=0; i <= m; ++i)
     {
-        while( i >= 0 && category[ order[i].second ].second > m )
+        for(int j=0; j < n; ++j)
         {
-            --i;
+            if(i + category[j].second <= m)
+            {
+                dp[i+category[j].second] = max(dp[i + category[j].second],
+                                               dp[i] + category[j].first);
+            }
         }
-        
-        if(i == -1)
-        {
-            break;
-        }
-        
-        j = m / category[ order[i].second ].second;
-        pts += j * category[ order[i].second ].first;
-        m -= j * category[ order[i].second ].second;
     }
 
-    printf("%d\n", pts);
+    printf("%d\n", dp[m]);
 
     return 0;
 }
